@@ -1,10 +1,12 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {
-  TouchableWithoutFeedback,
   ScrollView,
+  TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
+import ExpenseItemComponent, {
+  ExpenseItemComponentProps,
+} from '../../components/ExpenseItem';
 import {
   Container,
   Month,
@@ -12,19 +14,18 @@ import {
   DateSection,
   DayTitle,
   WeekDayTitle,
-  ListItemContainer,
   TotalContainer,
   TotalTitle,
   Currency,
   Total,
+  FlexRow,
+  FakeBg,
 } from './styles';
-import { FlexRow } from '../../styles';
 
-type ExpenseItem = {
-  name: string;
-  type: 'alimentation' | 'transportation';
-  value: number;
-  refundable: boolean;
+type ExpenseItem = ExpenseItemComponentProps & {
+  date?: string;
+  img?: string;
+  location?: string;
 };
 
 const Expenses: React.FC = () => {
@@ -35,60 +36,58 @@ const Expenses: React.FC = () => {
       refundable: true,
       type: 'alimentation',
       value: 24.7,
+      img: 'https://imgur.com/ppTo7xm',
     },
     {
-      name: 'Almoço restaurante',
+      name: 'Almoço restaurante 2',
       refundable: true,
       type: 'alimentation',
       value: 24.7,
     },
     {
-      name: 'Almoço restaurante',
+      name: 'Almoço restaurante 3',
       refundable: true,
       type: 'alimentation',
       value: 24.7,
+      img: 'https://imgur.com/ppTo7xm',
     },
     {
-      name: 'Almoço restaurante',
+      name: 'Deslocamento para Reunião',
       refundable: true,
-      type: 'alimentation',
+      type: 'transportation',
       value: 24.7,
     },
   ];
   return (
-    <Container>
-      <ScrollView>
-        <ListContainer>
-          <Month> Setembro</Month>
-          <DateSection>
-            <DayTitle>24</DayTitle>
-            <WeekDayTitle>Sexta</WeekDayTitle>
-          </DateSection>
-          {items.map((item: ExpenseItem, index) => (
-            <ListItemContainer key={index}>
+    <>
+      <FakeBg></FakeBg>
+      <Container>
+        <ScrollView>
+          <ListContainer>
+            <Month> Setembro</Month>
+            <DateSection>
+              <DayTitle>24</DayTitle>
+              <WeekDayTitle>Sexta</WeekDayTitle>
+            </DateSection>
+            {items.map((props: ExpenseItemComponentProps, index) => (
               <TouchableWithoutFeedback
+                key={index}
                 onPress={() => navigation.navigate('Refund')}
               >
-                <View>
-                  <Text>Almoço restaurante</Text>
-                  <Text>Alimentação</Text>
-                </View>
-                <FlexRow>
-                  <Text>26,00</Text>
-                </FlexRow>
+                <ExpenseItemComponent {...props}></ExpenseItemComponent>
               </TouchableWithoutFeedback>
-            </ListItemContainer>
-          ))}
-        </ListContainer>
-        <TotalContainer>
-          <TotalTitle>Total</TotalTitle>
-          <FlexRow>
-            <Currency>R$</Currency>
-            <Total>490,00</Total>
-          </FlexRow>
-        </TotalContainer>
-      </ScrollView>
-    </Container>
+            ))}
+          </ListContainer>
+          <TotalContainer>
+            <TotalTitle>Total</TotalTitle>
+            <FlexRow>
+              <Currency>R$</Currency>
+              <Total>490,00</Total>
+            </FlexRow>
+          </TotalContainer>
+        </ScrollView>
+      </Container>
+    </>
   );
 };
 

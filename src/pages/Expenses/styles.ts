@@ -1,18 +1,25 @@
 import styled from 'styled-components/native';
+import { TextRegular, TextBold, FlexRow as FlexRowInport } from '../../styles';
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
   align-items: stretch;
 `;
-export const ListContainer = styled.SafeAreaView`
+export const FakeBg = styled.View`
+  height: 300px;
+  width: 100%;
+  position: absolute;
+  background: #f6f8fb;
+`;
+export const ListContainer = styled.View`
   background: #f6f8fb;
   padding-top: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding-bottom: 30px;
   /* margin: 16px; */
 `;
-export const Month = styled.Text`
+export const Month = styled(TextBold)`
   font-size: 32px;
-  font-weight: bold;
   color: #566475;
   margin-left: 10px;
   margin-bottom: 14px;
@@ -24,44 +31,39 @@ export const DateSection = styled.View`
   flex-direction: row;
   align-items: flex-end;
 `;
-export const DayTitle = styled.Text`
+export const DayTitle = styled(TextBold)`
   font-size: 24px;
   color: #9dadb8;
-  font-weight: bold;
   margin-right: 4px;
 `;
-export const WeekDayTitle = styled.Text`
+export const WeekDayTitle = styled(TextRegular)`
   font-size: 14px;
   margin-bottom: 3px;
-  font-weight: normal;
   text-transform: uppercase;
   color: #9dadb8;
-`;
-export const ListItemContainer = styled.View`
-  background: white;
-  padding: 10px 16px;
-  margin-bottom: 8px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08);
 `;
 
 export const TotalContainer = styled.View`
   padding: 18px;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 `;
-export const TotalTitle = styled.Text`
+export const FlexRow = styled(FlexRowInport)`
+  align-items: flex-end;
+`;
+export const TotalTitle = styled(TextBold)`
   color: #9dadb8;
   font-size: 16px;
   text-transform: uppercase;
-  font-weight: bold;
 `;
-export const Currency = styled.Text`
+export const Currency = styled(TextBold)`
   color: #0f3a57;
   font-size: 16px;
-  font-weight: bold;
+  margin-right: 4px;
+  margin-bottom: 2px;
 `;
-export const Total = styled.Text`
+export const Total = styled(TextBold)`
   color: #0f3a57;
   font-size: 26px;
-  font-weight: bold;
 `;

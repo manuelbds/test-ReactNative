@@ -20,6 +20,13 @@
   ],
   "rules": {
     "import/prefer-default-export": "off",
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false,
+        "classes": true
+      }
+    ],
     "prettier/prettier": "error",
     "import/extensions": [
       "error",
