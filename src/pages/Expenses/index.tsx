@@ -22,51 +22,11 @@ import {
   FakeBg,
   SearchIcon,
 } from './styles';
-
-type ExpenseItem = ExpenseItemComponentProps & {
-  date?: string;
-  img?: string;
-  location?: string;
-};
+import { useExpenses } from '../../hooks/expenses';
 
 const Expenses: React.FC = () => {
   const navigation = useNavigation();
-  const items: Array<ExpenseItem> = [
-    {
-      name: 'Almoço restaurante',
-      refundable: true,
-      type: 'alimentation',
-      value: 30.2,
-      img: 'https://i.imgur.com/ppTo7xm.png',
-      date: '2020-09-19T12:59',
-      location: 'Rua salvatore leão 1234',
-    },
-    {
-      name: 'Almoço restaurante 2',
-      refundable: false,
-      type: 'alimentation',
-      value: 110,
-      date: '2020-09-19T12:59',
-      location: 'Av. Passo largo 5432',
-    },
-    {
-      name: 'Almoço restaurante 3',
-      refundable: true,
-      type: 'alimentation',
-      value: 15.12,
-      img: 'https://i.imgur.com/ppTo7xm.png',
-      date: '1920-09-01T20:59',
-      location: 'Rua Gonçalves Dias 68',
-    },
-    {
-      name: 'Deslocamento para Reunião',
-      refundable: true,
-      type: 'transportation',
-      value: 20,
-      date: '2020-09-20T11:20',
-      location: 'Rua Costa 250',
-    },
-  ];
+  const { expenses: items } = useExpenses();
   return (
     <>
       <FakeBg></FakeBg>

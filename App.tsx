@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import * as Font from 'expo-font';
 import Routes from './src/routes';
+import { ExpensesProvider } from './src/hooks/expenses';
 
 const App: React.FC = () => {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -17,10 +18,10 @@ const App: React.FC = () => {
   return (
     <>
       {isLoadingComplete && (
-        <>
+        <ExpensesProvider>
           <Routes />
           <StatusBar style="auto" />
-        </>
+        </ExpensesProvider>
       )}
     </>
   );
