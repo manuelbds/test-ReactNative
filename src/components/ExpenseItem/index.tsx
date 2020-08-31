@@ -6,6 +6,10 @@ import {
   ItemType,
   FlexRow,
   Value,
+  AlimentationIcon,
+  TypeContainer,
+  RefundIcon,
+  NonRefundIcon,
 } from './styles';
 
 export type ExpenseItemComponentProps = {
@@ -25,11 +29,27 @@ const ExpenseItemComponent: React.FC<ExpenseItemComponentProps> = ({
     <ListItemContainer>
       <FlexRow>
         <View>
-          <ItemTitle>{name}</ItemTitle>
-          <ItemType>{type}</ItemType>
+          <ItemTitle refundable={refundable}>{name}</ItemTitle>
+          <TypeContainer>
+            <AlimentationIcon
+              source={require('../../../assets/imgs/alimentation.png')}
+              refundable={refundable}
+            />
+            <ItemType refundable={refundable}>{type}</ItemType>
+          </TypeContainer>
         </View>
         <FlexRow>
-          <Value>{String(value.toFixed(2)).replace('.', ',')}</Value>
+          {refundable ? (
+            <RefundIcon source={require('../../../assets/imgs/refund.png')} />
+          ) : (
+              <NonRefundIcon
+                source={require('../../../assets/imgs/nonrefund.png')}
+              />
+            )}
+
+          <Value refundable={refundable}>
+            {String(value.toFixed(2)).replace('.', ',')}
+          </Value>
         </FlexRow>
       </FlexRow>
     </ListItemContainer>

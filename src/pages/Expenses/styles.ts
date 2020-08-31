@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Ionicons } from '@expo/vector-icons';
 import { TextRegular, TextBold, FlexRow as FlexRowInport } from '../../styles';
 
 export const Container = styled.SafeAreaView`
@@ -17,6 +18,11 @@ export const ListContainer = styled.View`
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   padding-bottom: 30px;
   /* margin: 16px; */
+`;
+export const SearchIcon = styled(Ionicons)`
+  position: absolute;
+  right: 19px;
+  margin-top: 20px;
 `;
 export const Month = styled(TextBold)`
   font-size: 32px;

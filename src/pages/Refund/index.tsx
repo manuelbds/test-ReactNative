@@ -1,6 +1,8 @@
 import React from 'react';
-import { Text, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { Text, View } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import Moment from 'react-moment';
+
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {
   Container,
@@ -12,36 +14,78 @@ import {
   LocationContainer,
   FlexBox,
   DateText,
+  MainDate,
   Image,
+  ExpenseTitle,
+  ExpenseType,
+  Refundable,
+  BackIcon,
+  Controllers,
+  PenIcon,
+  CalendarIcon,
+  CalendarCheck,
+  MainDateContainer,
+  AlimentationIcon,
+  RefundIcon,
+  NonRefundIcon,
 } from './styles';
-
-const DateString: React.Fc = () => {
-  return <DateText>12/12/2012 14h50</DateText>;
-};
+import { FlexRow } from '../../styles';
 
 const Refund: React.FC = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { value, date, refundable, location, img, name, type } = route.params;
+
   return (
     <Container>
       <TouchableWithoutFeedback onPress={() => navigation.navigate('Expenses')}>
-        <Text>Voltar</Text>
+        <Controllers>
+          <BackIcon name="arrowleft" size={30} color="#566475" />
+          <PenIcon name="pen" size={20} color="#566475" />
+        </Controllers>
       </TouchableWithoutFeedback>
       <ValueContainer>
         <Currency>R$</Currency>
-        <Value>49,90</Value>
+        <Value>{value}</Value>
       </ValueContainer>
       <ExpenseDetailContainer>
-        <Text>14/09/19</Text>
-        <Text>Almoço Restaurante</Text>
-        <Text>Alimentacao</Text>
-        <Text>Reembolsável</Text>
+        <MainDateContainer>
+          <CalendarIcon name="calendar" size={26}></CalendarIcon>
+          <MainDate format="DD/MM/YY" element={Text}>
+            {date}
+          </MainDate>
+        </MainDateContainer>
+        <ExpenseTitle>{name}</ExpenseTitle>
+        <FlexRow>
+          <AlimentationIcon
+            source={require('../../../assets/imgs/alimentation.png')}
+          />
+          <ExpenseType>{type}</ExpenseType>
+        </FlexRow>
+        <FlexRow>
+          {refundable ? (
+            <RefundIcon source={require('../../../assets/imgs/refund.png')} />
+          ) : (
+              <NonRefundIcon
+                source={require('../../../assets/imgs/nonrefund.png')}
+              />
+            )}
+          <Refundable refundable={refundable}>
+            {refundable ? '' : 'Não '}Reembolsável
+          </Refundable>
+        </FlexRow>
         <LocationContainer>
           <FlexBox>
-            <Location>Rua alguma coisa de algum lugar</Location>
+            <CalendarCheck name="calendar-check" size={26}></CalendarCheck>
+            <View>
+              <Location>{location}</Location>
+              <DateText format="DD/MM/YY - HH[h]mm" element={Text}>
+                {date}
+              </DateText>
+            </View>
           </FlexBox>
-          <DateString></DateString>
         </LocationContainer>
-        <Image source={{ uri: 'https://i.imgur.com/ppTo7xm.png' }}></Image>
+        <Image source={{ uri: img }}></Image>
       </ExpenseDetailContainer>
     </Container>
   );
