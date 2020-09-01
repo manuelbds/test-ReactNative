@@ -24,6 +24,8 @@ const Refund: React.FC = () => {
     type,
     id,
   } = route.params;
+
+  console.log('PARAMETROS', route.params);
   const [editValue, setEditValue] = useState(value);
 
   const { updateExpenses } = useExpenses();
@@ -34,10 +36,11 @@ const Refund: React.FC = () => {
       () =>
         updateExpenses({
           id,
-          value: text,
-          refundable,
           name,
+          refundable,
           type,
+          value: Number(text),
+          location,
         }),
       1000,
     );
