@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
+import { View, TouchableWithoutFeedback } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+
 import Moment from 'react-moment';
 import { TextRegular, TextBold, FlexRow as FlexRowInport } from '../../styles';
 
@@ -20,15 +22,16 @@ export const ListContainer = styled.View`
   padding-bottom: 30px;
   /* margin: 16px; */
 `;
-export const SearchIcon = styled(Ionicons)`
+export const SearchIconButton = styled.View`
   position: absolute;
-  right: 19px;
+  right: 16px;
   margin-top: 20px;
 `;
+export const SearchIcon = styled(Ionicons)``;
 export const Month = styled(TextBold)`
   font-size: 32px;
   color: #566475;
-  margin-left: 10px;
+  margin-left: 16px;
   margin-bottom: 14px;
 `;
 export const DateSection = styled.View`
@@ -75,4 +78,16 @@ export const Currency = styled(TextBold)`
 export const Total = styled(TextBold)`
   color: #0f3a57;
   font-size: 26px;
+`;
+
+export const SearchInput = styled.TextInput`
+  color: #0f3a57;
+  font-size: 16px;
+  font-family: 'OpenSans-Regular';
+  border-width: 1px;
+  border-color: #0f3a57;
+  padding: 10px;
+  margin: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
 `;

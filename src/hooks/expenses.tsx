@@ -58,6 +58,15 @@ const ExpensesProvider: React.FC = ({ children }) => {
       date: '2020-09-20T11:20',
       location: 'Rua Costa 250',
     },
+    {
+      id: '5',
+      name: 'Deslocamento para Reunião 2',
+      refundable: true,
+      type: 'Transporte',
+      value: 45,
+      date: '2020-09-22T11:20',
+      location: 'Tangamandápio, 250',
+    },
   ];
 
   const [expenses, setExpenses] = useState<ExpenseItem[]>(items);
