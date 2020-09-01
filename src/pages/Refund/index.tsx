@@ -45,7 +45,7 @@ const Refund: React.FC = () => {
       </TouchableWithoutFeedback>
       <ValueContainer>
         <Currency>R$</Currency>
-        <Value>{value}</Value>
+        <Value>{String(value.toFixed(2)).replace('.', ',')}</Value>
       </ValueContainer>
       <ExpenseDetailContainer>
         <MainDateContainer>

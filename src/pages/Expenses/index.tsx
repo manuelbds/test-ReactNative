@@ -5,8 +5,8 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
-import moment from 'moment';
 import 'moment/locale/pt-br';
+import moment from 'moment';
 
 import ExpenseItemComponent, {
   ExpenseItemComponentProps,
@@ -48,7 +48,10 @@ const Expenses: React.FC = () => {
 
   const lastDate = useRef(0);
 
-  useEffect(orderItems, []);
+  useEffect(() => {
+    orderItems();
+    moment.locale('pt-br');
+  }, []);
 
   return (
     <>

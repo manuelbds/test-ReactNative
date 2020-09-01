@@ -14,7 +14,7 @@ import {
 
 export type ExpenseItemComponentProps = {
   name: string;
-  type: 'alimentation' | 'transportation';
+  type: 'Alimentação' | 'Transporte';
   value: number;
   refundable: boolean;
 };
