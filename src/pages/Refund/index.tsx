@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import Moment from 'react-moment';
 
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import {

@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { Ionicons } from '@expo/vector-icons';
+import Moment from 'react-moment';
 import { TextRegular, TextBold, FlexRow as FlexRowInport } from '../../styles';
 
 export const Container = styled.SafeAreaView`
@@ -37,13 +38,15 @@ export const DateSection = styled.View`
   flex-direction: row;
   align-items: flex-end;
 `;
-export const DayTitle = styled(TextBold)`
+export const DayTitle = styled(Moment)`
   font-size: 24px;
+  font-family: 'OpenSans-Bold';
   color: #9dadb8;
   margin-right: 4px;
 `;
-export const WeekDayTitle = styled(TextRegular)`
+export const WeekDayTitle = styled(Moment)`
   font-size: 14px;
+  font-family: 'OpenSans-Regular';
   margin-bottom: 3px;
   text-transform: uppercase;
   color: #9dadb8;

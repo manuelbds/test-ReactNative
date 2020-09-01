@@ -36,7 +36,7 @@ const ExpensesProvider: React.FC = ({ children }) => {
       refundable: false,
       type: 'alimentation',
       value: 110,
-      date: '2020-09-19T12:59',
+      date: '2020-09-19T13:00',
       location: 'Av. Passo largo 5432',
     },
     {
