@@ -118,3 +118,9 @@ export const Image = styled.Image`
   height: 210px;
   resize-mode: cover;
 `;
+
+export const TextInput = styled.TextInput`
+  font-family: 'OpenSans-Bold';
+  font-size: 48px;
+  color: #566475;
+`;

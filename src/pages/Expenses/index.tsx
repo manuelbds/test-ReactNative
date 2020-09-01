@@ -41,7 +41,6 @@ const Expenses: React.FC = () => {
   const { expenses: items } = useExpenses();
   const [orderedItems, setOrderedItems] = useState(items);
   const [searching, setSearching] = useState(false);
-  const [searchingFilter, setSearchingFilter] = useState('');
   const refInput = useRef(null);
   const lastDate = useRef(0);
   const refDebounce = useRef(0);
@@ -61,6 +60,15 @@ const Expenses: React.FC = () => {
     },
     [items],
   );
+  const FormatedTotal = useCallback(() => {
+    const s = items.reduce(
+      (sum, currentItem) => sum + Number(currentItem.value),
+      0,
+    );
+    console.log('teste de soma, ', s);
+    if (s) return <Total>{String(s.toFixed(2)).replace('.', ',')}</Total>;
+    return <Total>0,00</Total>;
+  }, [orderItems]);
 
   const onChangeText = useCallback(text => {
     clearTimeout(refDebounce.current);
@@ -68,9 +76,10 @@ const Expenses: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    console.log('RENDERER');
     orderItems();
     moment.locale('pt-br');
-  }, []);
+  }, [items]);
 
   return (
     <>
@@ -137,9 +146,7 @@ const Expenses: React.FC = () => {
             <TotalTitle>Total</TotalTitle>
             <FlexRow>
               <Currency>R$</Currency>
-              <Total>
-                {items.reduce((sum, currentItem) => sum + currentItem.value, 0)}
-              </Total>
+              <FormatedTotal></FormatedTotal>
             </FlexRow>
           </TotalContainer>
         </ScrollView>

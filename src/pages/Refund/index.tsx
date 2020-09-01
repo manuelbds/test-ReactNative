@@ -1,92 +1,127 @@
-import React from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import {
-  Container,
-  ValueContainer,
-  Value,
-  Currency,
-  ExpenseDetailContainer,
-  Location,
-  LocationContainer,
-  FlexBox,
-  DateText,
-  MainDate,
-  Image,
-  ExpenseTitle,
-  ExpenseType,
-  Refundable,
-  BackIcon,
-  Controllers,
-  PenIcon,
-  CalendarIcon,
-  CalendarCheck,
-  MainDateContainer,
-  AlimentationIcon,
-  RefundIcon,
-  NonRefundIcon,
-} from './styles';
+import * as Cs from './styles';
+import { useExpenses } from '../../hooks/expenses';
 import { FlexRow } from '../../styles';
 
 const Refund: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { value, date, refundable, location, img, name, type } = route.params;
+  const [editing, setEditing] = useState(false);
+  const refInput = useRef(null);
+  const refDebounce = useRef(0);
+
+  const {
+    value,
+    date,
+    refundable,
+    location,
+    img,
+    name,
+    type,
+    id,
+  } = route.params;
+  const [editValue, setEditValue] = useState(value);
+
+  const { updateExpenses } = useExpenses();
+
+  const onChangeText = useCallback(text => {
+    clearTimeout(refDebounce.current);
+    refDebounce.current = setTimeout(
+      () =>
+        updateExpenses({
+          id,
+          value: text,
+          refundable,
+          name,
+          type,
+        }),
+      1000,
+    );
+  }, []);
 
   return (
-    <Container>
+    <Cs.Container>
       <TouchableWithoutFeedback onPress={() => navigation.navigate('Expenses')}>
-        <Controllers>
-          <BackIcon name="arrowleft" size={30} color="#566475" />
-          <PenIcon name="pen" size={20} color="#566475" />
-        </Controllers>
+        <Cs.Controllers>
+          <Cs.BackIcon name="arrowleft" size={30} color="#566475" />
+          <View>
+            <TouchableWithoutFeedback
+              onPress={() => {
+                setEditing(!editing);
+                setTimeout((): void => {
+                  if (refInput.current) refInput.current.focus();
+                }, 1000);
+              }}
+            >
+              <Cs.PenIcon name="pen" size={20} color="#566475" />
+            </TouchableWithoutFeedback>
+          </View>
+        </Cs.Controllers>
       </TouchableWithoutFeedback>
-      <ValueContainer>
-        <Currency>R$</Currency>
-        <Value>{String(value.toFixed(2)).replace('.', ',')}</Value>
-      </ValueContainer>
-      <ExpenseDetailContainer>
-        <MainDateContainer>
-          <CalendarIcon name="calendar" size={26}></CalendarIcon>
-          <MainDate format="DD/MM/YY" element={Text}>
+      <Cs.ValueContainer>
+        <Cs.Currency>R$</Cs.Currency>
+        <Cs.Value></Cs.Value>
+
+        {!editing ? (
+          <Cs.Value>{String(value.toFixed(2)).replace('.', ',')}</Cs.Value>
+        ) : (
+            <Cs.TextInput
+              ref={refInput}
+              keyboardType="numeric"
+              placeholder={`${editValue.toFixed(2)}`}
+              onChangeText={text => onChangeText(text)}
+            ></Cs.TextInput>
+          )}
+      </Cs.ValueContainer>
+      <Cs.ExpenseDetailContainer>
+        <Cs.MainDateContainer>
+          <Cs.CalendarIcon name="calendar" size={26}></Cs.CalendarIcon>
+          <Cs.MainDate format="DD/MM/YY" element={Text}>
             {date}
-          </MainDate>
-        </MainDateContainer>
-        <ExpenseTitle>{name}</ExpenseTitle>
+          </Cs.MainDate>
+        </Cs.MainDateContainer>
+        <Cs.ExpenseTitle>{name}</Cs.ExpenseTitle>
         <FlexRow>
-          <AlimentationIcon
+          <Cs.AlimentationIcon
             source={require('../../../assets/imgs/alimentation.png')}
           />
-          <ExpenseType>{type}</ExpenseType>
+          <Cs.ExpenseType>{type}</Cs.ExpenseType>
         </FlexRow>
         <FlexRow>
           {refundable ? (
-            <RefundIcon source={require('../../../assets/imgs/refund.png')} />
+            <Cs.RefundIcon
+              source={require('../../../assets/imgs/refund.png')}
+            />
           ) : (
-              <NonRefundIcon
+              <Cs.NonRefundIcon
                 source={require('../../../assets/imgs/nonrefund.png')}
               />
             )}
-          <Refundable refundable={refundable}>
+          <Cs.Refundable refundable={refundable}>
             {refundable ? '' : 'Não '}Reembolsável
-          </Refundable>
+          </Cs.Refundable>
         </FlexRow>
-        <LocationContainer>
-          <FlexBox>
-            <CalendarCheck name="calendar-check" size={26}></CalendarCheck>
+        <Cs.LocationContainer>
+          <Cs.FlexBox>
+            <Cs.CalendarCheck
+              name="calendar-check"
+              size={26}
+            ></Cs.CalendarCheck>
             <View>
-              <Location>{location}</Location>
-              <DateText format="DD/MM/YY - HH[h]mm" element={Text}>
+              <Cs.Location>{location}</Cs.Location>
+              <Cs.DateText format="DD/MM/YY - HH[h]mm" element={Text}>
                 {date}
-              </DateText>
+              </Cs.DateText>
             </View>
-          </FlexBox>
-        </LocationContainer>
-        <Image source={{ uri: img }}></Image>
-      </ExpenseDetailContainer>
-    </Container>
+          </Cs.FlexBox>
+        </Cs.LocationContainer>
+        <Cs.Image source={{ uri: img }}></Cs.Image>
+      </Cs.ExpenseDetailContainer>
+    </Cs.Container>
   );
 };
 

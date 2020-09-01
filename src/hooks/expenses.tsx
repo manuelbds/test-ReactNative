@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+  useEffect,
+} from 'react';
 import { ExpenseItemComponentProps } from '../components/ExpenseItem';
 
 export type ExpenseItem = ExpenseItemComponentProps & {
@@ -69,12 +75,21 @@ const ExpensesProvider: React.FC = ({ children }) => {
     },
   ];
 
-  const [expenses, setExpenses] = useState<ExpenseItem[]>(items);
+  const [expenses, setExpenses] = useState(items);
 
   const updateExpenses = useCallback((expense: ExpenseItem) => {
+    console.log('Expense original ', expenses);
     console.log('UPDATE Expense', expense);
-    // setExpenses(state => state.filter(message => message.id !== id));
+    const newExpenses = expenses.map(item => {
+      if (item.id === expense.id) return expense;
+      return item;
+    });
+    setExpenses(newExpenses);
   }, []);
+
+  useEffect(() => {
+    console.log('changed expenses!!!!', expenses);
+  }, [expenses]);
 
   return (
     <ExpensesContext.Provider value={{ expenses, updateExpenses }}>

@@ -48,7 +48,7 @@ const ExpenseItemComponent: React.FC<ExpenseItemComponentProps> = ({
             )}
 
           <Value refundable={refundable}>
-            {String(value.toFixed(2)).replace('.', ',')}
+            {value && String(Number(value).toFixed(2)).replace('.', ',')}
           </Value>
         </FlexRow>
       </FlexRow>
