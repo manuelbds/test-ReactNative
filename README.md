@@ -4,9 +4,10 @@
 ![Ts](https://img.shields.io/badge/Built%20With-TypeScript-9cf.svg)
 
 Projeto teste feito em React Native utilizando Expo, para Android e iOS
+![Demonstração da navegação](demo.gif)
+![Demonstração da edição](demo2.gif)
 
-![Demonstração do aplicativo](demo.gif)
-
+> Observar que as animações em gif tem discrepâncias em cores sutis do aplicativo e podem não apresentar com fideidade o layout final
 ## Instruções de Uso
 
 1.  Clone ou baixe os arquivos do repositório (pode ser [aqui](https://github.com/manuelbds/test-ReactNative/archive/master.zip))
