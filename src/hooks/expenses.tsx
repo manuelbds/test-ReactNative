@@ -31,7 +31,7 @@ const ExpensesProvider: React.FC = ({ children }) => {
       name: 'Almoço restaurante 1',
       refundable: true,
       type: 'Alimentação',
-      value: 1,
+      value: 12,
       img: 'https://i.imgur.com/ppTo7xm.png',
       date: '2020-09-19T12:59',
       location: 'Rua salvatore leão 1234',
@@ -41,7 +41,7 @@ const ExpensesProvider: React.FC = ({ children }) => {
       name: 'Almoço restaurante 2',
       refundable: false,
       type: 'Alimentação',
-      value: 2,
+      value: 23.34,
       date: '2020-09-19T13:00',
       location: 'Av. Passo largo 5432',
     },
@@ -50,7 +50,7 @@ const ExpensesProvider: React.FC = ({ children }) => {
       name: 'Almoço restaurante 3',
       refundable: true,
       type: 'Alimentação',
-      value: 3,
+      value: 30.12,
       img: 'https://i.imgur.com/ppTo7xm.png',
       date: '1920-09-01T20:59',
       location: 'Rua Gonçalves Dias 68',
@@ -60,7 +60,7 @@ const ExpensesProvider: React.FC = ({ children }) => {
       name: 'Deslocamento para Reunião',
       refundable: true,
       type: 'Transporte',
-      value: 4,
+      value: 14.1,
       date: '2020-09-20T11:20',
       location: 'Rua Costa 250',
     },
@@ -79,8 +79,6 @@ const ExpensesProvider: React.FC = ({ children }) => {
 
   const updateExpenses = useCallback(
     (expense: ExpenseItem) => {
-      console.log('Expense original ', expenses);
-      console.log('UPDATE Expense', expense);
       const newExpenses = expenses.map(item => {
         if (item.id === expense.id) return { ...item, ...expense };
         return item;

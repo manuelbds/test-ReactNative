@@ -79,6 +79,8 @@ const Expenses: React.FC = () => {
     console.log('RENDERER');
     orderItems();
     moment.locale('pt-br');
+    // I need to reset this on the re-render, so the first date won't fail falsly comparing with itself
+    lastDate.current = 0;
   }, [items]);
 
   return (
